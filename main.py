@@ -29,8 +29,20 @@ class quiz:
         self.submit = Button(tk, text="LOGIN", height=1, width=8, font=myFont, bg="#07AD31", fg="white",activebackground="white", command=self.checkLogin)
         self.invalidLogin = Label(tk, text="Invalid username or password", font=("Rockwell", 15))
 
-        #Window3 widgets
-        #window 3 widgets here
+        # Window3 widgets
+        self.heading3 = Label(tk, text="Create a New account", font=("Rockwell",40,'bold'))
+        self.NameText = Label(tk, text='Name: ', font=('Rockwell',18))
+        self.NameEntry = Entry(tk, width=40)
+        self.EmailText = Label(tk, text='Email: ', font=('Rockwell',18))
+        self.EmailEntry = Entry(tk, width=40)
+        self.userNameText = Label(tk, text="Username: ", font=("Rockwell", 18))
+        self.userNameEntry = Entry(tk, width=40)
+        self.passText = Label(tk, text="Password: ", font=("Rockwell", 18))
+        self.passEntry = Entry(tk, show="*", width=40)
+        self.confirmPassText = Label(tk, text='Confirm Password: ',font=('Rockwell',18))
+        self.confirmPassEntry = Entry(tk, show='*', width=40)
+        self.submitButton = Button(tk, text="LOGIN", height=1, width=8, font=myFont, bg="#07AD31", fg="white",
+                             activebackground="white", command=self.register)
         
         #Window4 widgets
         #window 4 widgets here
@@ -51,7 +63,7 @@ class quiz:
     def signup(self):
         self.clearWindow1()
         print("Signup clicked")
-        #self.window3
+        self.window3()
 
     def login(self):
         self.clearWindow1()
@@ -99,6 +111,39 @@ class quiz:
             #window5
         else:
             self.invalidLogin.place(relx=0.5, rely=0.3, anchor='center')
+            
+    # --------------------------------------------------------------------------------------------------------------------------------
+    def window3(self):
+        self.heading3.place(relx=0.5, rely=0.1, anchor='center')
+        self.NameText.place(relx=0.4, rely=0.4, anchor='e')
+        self.NameEntry.place(relx=0.41, rely=0.4, anchor='w')
+        self.EmailText.place(relx=0.4, rely=0.5, anchor='e')
+        self.EmailEntry.place(relx=0.41, rely=0.5, anchor='w')
+        self.userNameText.place(relx=0.4, rely=0.6, anchor='e')
+        self.userNameEntry.place(relx=0.41, rely=0.6, anchor='w')
+        self.passText.place(relx=0.4, rely=0.7,anchor='e')
+        self.passEntry.place(relx=0.41, rely=0.7, anchor='w')
+        self.confirmPassText.place(relx=0.4, rely=0.8, anchor='e')
+        self.confirmPassEntry.place(relx=0.41, rely=0.8, anchor='w')
+        self.submitButton.place(relx=0.5, rely=0.9, anchor='center')
+
+    def clearWindow3(self):
+        self.heading3.place_forget()
+        self.NameText.place_forget()
+        self.NameEntry.place_forget()
+        self.EmailText.place_forget()
+        self.EmailEntry.place_forget()
+        self.userNameText.place_forget()
+        self.userNameEntry.place_forget()
+        self.passText.place_forget()
+        self.passEntry.place_forget()
+        self.confirmPassText.place_forget()
+        self.confirmPassEntry.place_forget()
+        self.submitButton.place_forget()
+
+    def register(self):
+        self.clearWindow3()
+        print("Button Clicked")
             
     
 
