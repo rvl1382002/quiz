@@ -3,12 +3,13 @@ from tkinter import *
 import tkinter.font as font
 import mysql.connector as mc
 
-# window1=Home window,
-# window2=login window,
-# window3=signup window
-# window4=leaderboard window
-# window5=dashboard window
-
+# window1=Home window 
+# window2=login window
+# window3=signup window #moksha
+# window4=leaderboard window 
+# window5=dashboard window #moksha
+# window6=quiz window #moksha
+# window7=admin login
 
 class quiz:
     def __init__(self):
@@ -17,7 +18,8 @@ class quiz:
         self.signupButton = Button(tk, text="SIGNUP", height=3, width=15, font=myFont, bg="#07AD31", fg="white",activebackground="white", command=self.signup)
         self.logButton = Button(tk, text="LOGIN", height=3, width=15, font=myFont, bg="#07AD31", fg="white",activebackground="white", command=self.login)
         self.leadButton = Button(tk, text="LEADERBOARD", height=3, width=15, font=myFont, bg="#07AD31", fg="white",activebackground="white", command=self.leaderboard)
-
+        #self.adminLoginButton = Button(tk, text="ADMIN LOGIN", height=2, width=12, font=myFont,bg="#07AD31",fg="white",activebackground="white",command=self.adminLogin)
+        
         #Window2 widgets
         self.heading2 = Label(tk, text="Login", font=("Rockwell", 40, "bold"))
         self.userNameText = Label(tk, text="Username: ", font=("Rockwell", 15))
@@ -27,7 +29,18 @@ class quiz:
         self.submit = Button(tk, text="LOGIN", height=1, width=8, font=myFont, bg="#07AD31", fg="white",activebackground="white", command=self.checkLogin)
         self.invalidLogin = Label(tk, text="Invalid username or password", font=("Rockwell", 15))
 
-        #Window3widgets
+        #Window3 widgets
+        #window 3 widgets here
+        
+        #Window4 widgets
+        #window 4 widgets here
+
+        # Window5 widgets
+        # window 5 widgets here
+
+        # Window6 widgets
+        # window 6 widgets here
+        
     #-------------------------------------------------------------------------------------------------------------------
     def window1(self):
         self.heading.place(relx=0.5, rely=0.1, anchor="center")
@@ -86,10 +99,15 @@ class quiz:
             #window5
         else:
             self.invalidLogin.place(relx=0.5, rely=0.3, anchor='center')
+            
+    
 
 if __name__=='__main__':
+    dbPass = "Ridd_hish"  # change this as per your machine
+    dbName = "quiz"  # change if database name is different on your machine
+
     try:
-        mycon = mc.connect(host="localhost", user="root", password="Ridd_hish", database="quiz")
+        mycon = mc.connect(host="localhost", user="root", password=dbPass, database=dbName)
         user = mycon.cursor()
     except:
         print("Error connecting to the database...!\nPlease try again after sometime.")
@@ -101,5 +119,4 @@ if __name__=='__main__':
     tk.geometry('1200x700')
     ob=quiz()
     ob.window1()
-    print("Window1 called")
     tk.mainloop()
