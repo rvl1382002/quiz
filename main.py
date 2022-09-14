@@ -41,7 +41,7 @@ class quiz:
         self.passEntry = Entry(tk, show="*", width=40)
         self.confirmPassText = Label(tk, text='Confirm Password: ',font=('Rockwell',18))
         self.confirmPassEntry = Entry(tk, show='*', width=40)
-        self.submitButton = Button(tk, text="LOGIN", height=1, width=8, font=myFont, bg="#07AD31", fg="white",
+        self.submitButton = Button(tk, text="SUBMIT", height=1, width=8, font=myFont, bg="#07AD31", fg="white",
                              activebackground="white", command=self.register)
         
         #Window4 widgets
