@@ -10,6 +10,7 @@ import mysql.connector as mc
 # window5=dashboard window #moksha
 # window6=quiz window #moksha
 # window7=admin login
+# window8=Forgot Credentials
 
 class quiz:
     def __init__(self):
