@@ -13,6 +13,12 @@ import mysql.connector as mc
 # window7=admin login
 # window8=Forgot Credentials
 
+def isUserName(u):
+	for i in u:
+		if not i.isalnum() and i!="_":
+			return False
+	return True
+
 class quiz:
     def __init__(self):
         # Window1 widgets
@@ -24,6 +30,7 @@ class quiz:
         self.leadButton = Button(tk, text="LEADERBOARD", height=3, width=15, font=myFont, bg="#07AD31", fg="white",
                                  activebackground="white", command=self.leaderboard)
         # self.adminLoginButton = Button(tk, text="ADMIN LOGIN", height=2, width=12, font=myFont,bg="#07AD31",fg="white", activebackground="white", command=self.adminLogin)
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
         # Window2 widgets: Login
         self.heading2 = Label(tk, text="Login", font=("Rockwell", 40, "bold"))
@@ -39,7 +46,7 @@ class quiz:
         self.signupButton2 = Button(tk, text="SIGNUP", height=1, width=8, font=myFont, bg="#07AD31", fg="white",
                                    activebackground="white", command=self.signup)
 
-
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         # Window3 widgets: Signup
         self.heading3 = Label(tk, text="Create a New account", font=("Rockwell", 40, 'bold'))
         self.NameText = Label(tk, text='Name: ', font=('Rockwell', 18))
@@ -48,6 +55,7 @@ class quiz:
         self.EmailEntry = Entry(tk, width=40)
         self.userNameText2 = Label(tk, text="Username: ", font=("Rockwell", 18))
         self.userNameEntry2 = Entry(tk, width=40)
+        self.invalidUsername = Label(tk,text="Invalid username!", font=('Rockwell',15))
         self.passText2 = Label(tk, text="Password: ", font=("Rockwell", 18))
         self.passEntry2 = Entry(tk, show="*", width=40)
         self.confirmPassText = Label(tk, text='Confirm Password: ', font=('Rockwell', 18))
@@ -152,8 +160,6 @@ class quiz:
     def mailForOTP(self):
         print("Send e-mail clicked")
 
-
-
     # --------------------------------------------------------------------------------------------------------------------------------
     def window3(self):
         self.heading3.place(relx=0.5, rely=0.1, anchor='center')
@@ -190,15 +196,18 @@ class quiz:
 
     def register(self):
         enteredName=self.NameEntry.get()
-        enteredUsername=self.userNameEntry.get()
+        enteredUsername=self.userNameEntry2.get()
+        if isUserName(enteredUsername):
+            pass #self.clearWindow3()
+        else:
+            self.invalidUsername.place(relx=0.5, rely=0.2, anchor='center')
         enteredEmail=self.EmailEntry.get()
-        enteredPassword=self.passEntry.get()
+        enteredPassword=self.passEntry2.get()     #passentry
         enteredConfirmpassword=self.confirmPassEntry.get()
         if enteredPassword == enteredConfirmpassword:
             self.clearWindow3()
         else:
             self.invalidPassword.place(relx=0.5, rely=0.2,anchor='center')
-
         print("Button Clicked")
 
     #Window 8-----------------------------------------------------------------------------------------------------------
