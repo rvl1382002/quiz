@@ -181,7 +181,7 @@ class quiz:
         self.submitForgotCreds.place(relx=0.5,rely=0.5,anchor="center")
 
 if __name__ == '__main__':
-    dbPass = "Ridd_hish"  # change this as per your machine
+    dbPass = "mokshada"  # change this as per your machine
     dbName = "quiz"  # change if database name is different on your machine
     try:
         mycon = mc.connect(host="localhost", user="root", password=dbPass, database=dbName)
