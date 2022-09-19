@@ -28,13 +28,17 @@ class quiz:
         # Window2 widgets: Login
         self.heading2 = Label(tk, text="Login", font=("Rockwell", 40, "bold"))
         self.userNameText = Label(tk, text="Username: ", font=("Rockwell", 15))
-        self.userNameEntry = Entry(tk)
+        self.userNameEntry = Entry(tk,width=30)
         self.passText = Label(tk, text="Password: ", font=("Rockwell", 15))
-        self.passEntry = Entry(tk, show="*")
+        self.passEntry = Entry(tk, show="*",width=30)
         self.submit = Button(tk, text="LOGIN", height=1, width=8, font=myFont, bg="#07AD31", fg="white",
                              activebackground="white", command=self.checkLogin)
         self.invalidLogin = Label(tk, text="Invalid username or password", font=("Rockwell", 15))
         self.forgotUserPassButton = Button(tk, text="Forgot Username/Password", height=1, width=25, font=myFont2, bg="white", fg="black", activeforeground="blue", command=self.forgotUserPass)
+        self.NoAccountText = Label(tk, text="Don't have an account?", font=myFont3)
+        self.signupButton2 = Button(tk, text="SIGNUP", height=1, width=8, font=myFont, bg="#07AD31", fg="white",
+                                   activebackground="white", command=self.signup)
+
 
         # Window3 widgets: Signup
         self.heading3 = Label(tk, text="Create a New account", font=("Rockwell", 40, 'bold'))
@@ -42,14 +46,18 @@ class quiz:
         self.NameEntry = Entry(tk, width=40)
         self.EmailText = Label(tk, text='Email: ', font=('Rockwell', 18))
         self.EmailEntry = Entry(tk, width=40)
-        self.userNameText = Label(tk, text="Username: ", font=("Rockwell", 18))
-        self.userNameEntry = Entry(tk, width=40)
-        self.passText = Label(tk, text="Password: ", font=("Rockwell", 18))
-        self.passEntry = Entry(tk, show="*", width=40)
+        self.userNameText2 = Label(tk, text="Username: ", font=("Rockwell", 18))
+        self.userNameEntry2 = Entry(tk, width=40)
+        self.passText2 = Label(tk, text="Password: ", font=("Rockwell", 18))
+        self.passEntry2 = Entry(tk, show="*", width=40)
         self.confirmPassText = Label(tk, text='Confirm Password: ', font=('Rockwell', 18))
         self.confirmPassEntry = Entry(tk, show='*', width=40)
+        self.invalidPassword = Label(tk, text="Password doesn't match!", font=("Rockwell", 15))
         self.submitButton = Button(tk, text="SUBMIT", height=1, width=8, font=myFont, bg="#07AD31", fg="white",
                                    activebackground="white", command=self.register)
+        self.HaveAccountText = Label(tk, text="Already have an account?", font=myFont3)
+        self.loginButton2 = Button(tk, text="LOGIN", height=1, width=8, font=myFont, bg="#07AD31", fg="white",
+                                    activebackground="white", command=self.login)
 
         # Window4 widgets
         # window 4 widgets here
@@ -78,11 +86,13 @@ class quiz:
 
     def signup(self):
         self.clearWindow1()
+        self.clearWindow2()
         print("Signup clicked")
         self.window3()
 
     def login(self):
         self.clearWindow1()
+        self.clearWindow3()
         print("Login clicked")
         self.window2()
 
@@ -106,6 +116,8 @@ class quiz:
         self.passEntry.place(relx=0.41, rely=0.5, anchor="w")
         self.submit.place(relx=0.5, rely=0.64, anchor="center")
         self.forgotUserPassButton.place(relx=0.44, rely=0.58, anchor="w")
+        self.NoAccountText.place(relx= 0.5, rely=0.73, anchor='center')
+        self.signupButton2.place(relx=0.5, rely=0.78, anchor='center')
 
     def clearWindow2(self):
         self.heading2.place_forget()
@@ -116,6 +128,8 @@ class quiz:
         self.submit.place_forget()
         self.invalidLogin.place_forget()
         self.forgotUserPassButton.place_forget()
+        self.NoAccountText.place_forget()
+        self.signupButton2.place_forget()
 
     def checkLogin(self):
         enteredUsername = self.userNameEntry.get()
@@ -143,17 +157,19 @@ class quiz:
     # --------------------------------------------------------------------------------------------------------------------------------
     def window3(self):
         self.heading3.place(relx=0.5, rely=0.1, anchor='center')
-        self.NameText.place(relx=0.4, rely=0.4, anchor='e')
-        self.NameEntry.place(relx=0.41, rely=0.4, anchor='w')
-        self.EmailText.place(relx=0.4, rely=0.5, anchor='e')
-        self.EmailEntry.place(relx=0.41, rely=0.5, anchor='w')
-        self.userNameText.place(relx=0.4, rely=0.6, anchor='e')
-        self.userNameEntry.place(relx=0.41, rely=0.6, anchor='w')
-        self.passText.place(relx=0.4, rely=0.7, anchor='e')
-        self.passEntry.place(relx=0.41, rely=0.7, anchor='w')
-        self.confirmPassText.place(relx=0.4, rely=0.8, anchor='e')
-        self.confirmPassEntry.place(relx=0.41, rely=0.8, anchor='w')
-        self.submitButton.place(relx=0.5, rely=0.9, anchor='center')
+        self.NameText.place(relx=0.4, rely=0.3, anchor='e')
+        self.NameEntry.place(relx=0.41, rely=0.3, anchor='w')
+        self.EmailText.place(relx=0.4, rely=0.38, anchor='e')
+        self.EmailEntry.place(relx=0.41, rely=0.38, anchor='w')
+        self.userNameText2.place(relx=0.4, rely=0.46, anchor='e')
+        self.userNameEntry2.place(relx=0.41, rely=0.46, anchor='w')
+        self.passText2.place(relx=0.4, rely=0.54, anchor='e')
+        self.passEntry2.place(relx=0.41, rely=0.54, anchor='w')
+        self.confirmPassText.place(relx=0.4, rely=0.62, anchor='e')
+        self.confirmPassEntry.place(relx=0.41, rely=0.62, anchor='w')
+        self.submitButton.place(relx=0.5, rely=0.7, anchor='center')
+        self.HaveAccountText.place(relx=0.5, rely=0.8, anchor='center')
+        self.loginButton2.place(relx=0.5, rely=0.87, anchor='center')
 
     def clearWindow3(self):
         self.heading3.place_forget()
@@ -161,16 +177,28 @@ class quiz:
         self.NameEntry.place_forget()
         self.EmailText.place_forget()
         self.EmailEntry.place_forget()
-        self.userNameText.place_forget()
-        self.userNameEntry.place_forget()
-        self.passText.place_forget()
-        self.passEntry.place_forget()
+        self.userNameText2.place_forget()
+        self.userNameEntry2.place_forget()
+        self.passText2.place_forget()
+        self.passEntry2.place_forget()
         self.confirmPassText.place_forget()
         self.confirmPassEntry.place_forget()
         self.submitButton.place_forget()
+        self.HaveAccountText.place_forget()
+        self.loginButton2.place_forget()
+        self.invalidPassword.place_forget()
 
     def register(self):
-        self.clearWindow3()
+        enteredName=self.NameEntry.get()
+        enteredUsername=self.userNameEntry.get()
+        enteredEmail=self.EmailEntry.get()
+        enteredPassword=self.passEntry.get()
+        enteredConfirmpassword=self.confirmPassEntry.get()
+        if enteredPassword == enteredConfirmpassword:
+            self.clearWindow3()
+        else:
+            self.invalidPassword.place(relx=0.5, rely=0.2,anchor='center')
+
         print("Button Clicked")
 
     #Window 8-----------------------------------------------------------------------------------------------------------
@@ -194,6 +222,7 @@ if __name__ == '__main__':
     tk.title("Title")
     myFont = font.Font(family='Rockwell')
     myFont2 = font.Font(family='Rockwell', size=8) #Used for forgot username/password button
+    myFont3 = font.Font(family='Rockwell', size=10) #Used for account
     tk.geometry('1200x700')
     ob = quiz()
     ob.window1()
