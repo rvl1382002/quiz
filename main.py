@@ -36,7 +36,7 @@ def usernameExists(u):#incomplete
         return False
 
 
-def emailExists(email):
+def emailExists(u):
     user.execute('SELECT EMAIL FROM USERS')
     existingEmail = user.fetchall()
     if u in [j for i in existingEmail for j in i]:
