@@ -2,7 +2,7 @@ import hashlib
 from tkinter import *
 import tkinter.font as font
 import mysql.connector as mc
-
+import re
 
 # window1=Home window
 # window2=login window
@@ -18,6 +18,19 @@ def isUserName(u):
 		if not i.isalnum() and i!="_":
 			return False
 	return True
+
+def isEmail(email):
+    regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+    if re.fullmatch(regex,email):
+        return True
+    else:
+        return False
+
+def usernameExists(u):
+    return False
+
+def emailExists(email):
+    return False
 
 class quiz:
     def __init__(self):
@@ -196,6 +209,10 @@ class quiz:
         self.HaveAccountText.place_forget()
         self.loginButton2.place_forget()
         self.invalidPassword.place_forget()
+        self.invalidEmail.place_forget()
+        self.invalidUsername.place_forget()
+        self.ExistEmail.place_forget()
+        self.ExistUsername.place_forget()
 
     def register(self):
         enteredName=self.NameEntry.get()
@@ -209,9 +226,9 @@ class quiz:
             self.invalidUsername.place(relx=0.5, rely=0.2, anchor='center')
         elif not isEmail(enteredEmail):
             self.invalidEmail.place(relx=0.5,rely=0.2,anchor='center')
-        elif usernameExist(enteredUsername):
+        elif usernameExists(enteredUsername):
             self.ExistUsername.place(relx=0.5,rely=0.2,anchor='center')
-        elif emailExist(enteredEmail):
+        elif emailExists(enteredEmail):
             self.ExistEmail.place(relx=0.5,rely=0.2,anchor='center')
         elif enteredPassword != enteredConfirmpassword:
             self.invalidPassword.place(relx=0.5, rely=0.2,anchor='center')
@@ -219,6 +236,7 @@ class quiz:
             self.clearWindow3()
             #window5()
         print("Button Clicked")
+
 
     #Window 8-----------------------------------------------------------------------------------------------------------
     def window8(self,username):
@@ -228,11 +246,12 @@ class quiz:
         self.submitForgotCreds.place(relx=0.5,rely=0.5,anchor="center")
 
 if __name__ == '__main__':
-    dbPass = "mokshada"  # change this as per your machine
+    dbPass = "Ridd_hish"  # change this as per your machine
     dbName = "quiz"  # change if database name is different on your machine
     try:
         mycon = mc.connect(host="localhost", user="root", password=dbPass, database=dbName)
         user = mycon.cursor()
+
     except:
         print("Error connecting to the database...!\nPlease try again after sometime.")
         print("We are sorry for the inconvenience")
