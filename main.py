@@ -53,9 +53,12 @@ class quiz:
         self.NameEntry = Entry(tk, width=40)
         self.EmailText = Label(tk, text='Email: ', font=('Rockwell', 18))
         self.EmailEntry = Entry(tk, width=40)
+        self.invalidEmail = Label(tk, text="Invalid Email id!", font=('Rockwell',15))
+        self.ExistEmail = Label(tk, text="Email already Exist", font=('Rockwell',15))
         self.userNameText2 = Label(tk, text="Username: ", font=("Rockwell", 18))
         self.userNameEntry2 = Entry(tk, width=40)
         self.invalidUsername = Label(tk,text="Invalid username!", font=('Rockwell',15))
+        self.ExistUsername = Label(tk, text="Username already exist", font=('rockwell',15))
         self.passText2 = Label(tk, text="Password: ", font=("Rockwell", 18))
         self.passEntry2 = Entry(tk, show="*", width=40)
         self.confirmPassText = Label(tk, text='Confirm Password: ', font=('Rockwell', 18))
@@ -197,17 +200,24 @@ class quiz:
     def register(self):
         enteredName=self.NameEntry.get()
         enteredUsername=self.userNameEntry2.get()
-        if isUserName(enteredUsername):
-            pass #self.clearWindow3()
-        else:
-            self.invalidUsername.place(relx=0.5, rely=0.2, anchor='center')
         enteredEmail=self.EmailEntry.get()
         enteredPassword=self.passEntry2.get()     #passentry
         enteredConfirmpassword=self.confirmPassEntry.get()
-        if enteredPassword == enteredConfirmpassword:
-            self.clearWindow3()
-        else:
+
+
+        if not isUserName(enteredUsername):
+            self.invalidUsername.place(relx=0.5, rely=0.2, anchor='center')
+        elif not isEmail(enteredEmail):
+            self.invalidEmail.place(relx=0.5,rely=0.2,anchor='center')
+        elif usernameExist(enteredUsername):
+            self.ExistUsername.place(relx=0.5,rely=0.2,anchor='center')
+        elif emailExist(enteredEmail):
+            self.ExistEmail.place(relx=0.5,rely=0.2,anchor='center')
+        elif enteredPassword != enteredConfirmpassword:
             self.invalidPassword.place(relx=0.5, rely=0.2,anchor='center')
+        else:
+            self.clearWindow3()
+            #window5()
         print("Button Clicked")
 
     #Window 8-----------------------------------------------------------------------------------------------------------
