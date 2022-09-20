@@ -1,8 +1,8 @@
-import hashlib
+import hashlib #for password
 from tkinter import *
 import tkinter.font as font
 import mysql.connector as mc
-import re
+import re #for valid email
 
 # window1=Home window
 # window2=login window
@@ -30,7 +30,12 @@ def usernameExists(u):
     return False
 
 def emailExists(email):
-    return False
+    user.execute('SELECT EMAIL FROM USERS')
+    existingEmail = user.fetchall()
+    if u in [j for i in existingEmail for j in i]:
+        return True
+    else:
+        return False
 
 class quiz:
     def __init__(self):
@@ -246,7 +251,7 @@ class quiz:
         self.submitForgotCreds.place(relx=0.5,rely=0.5,anchor="center")
 
 if __name__ == '__main__':
-    dbPass = "Ridd_hish"  # change this as per your machine
+    dbPass = "mokshada"  # change this as per your machine
     dbName = "quiz"  # change if database name is different on your machine
     try:
         mycon = mc.connect(host="localhost", user="root", password=dbPass, database=dbName)
