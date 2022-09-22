@@ -3,6 +3,7 @@ from tkinter import *
 import tkinter.font as font
 import mysql.connector as mc
 import re #for valid email
+import time
 
 # window1=Home window
 # window2=login window
@@ -95,6 +96,8 @@ class quiz:
         self.loginButton2 = Button(tk, text="LOGIN", height=1, width=8, font=myFont, bg="#07AD31", fg="white",
                                     activebackground="white", command=self.login)
 
+        self.registeredMessage = Label(tk, text='Registered Succesfully!', font=("Rockwell", 22))
+
         # Window4 widgets
         # window 4 widgets here
 
@@ -170,7 +173,7 @@ class quiz:
     def checkLogin(self):
         enteredUsername = self.userNameEntry.get()
         enteredPass = self.passEntry.get()
-        user.execute("SELECT PASSWORD FROM USERS WHERE USERNAME={}".format('username'))
+        user.execute("SELECT PASSWORD FROM USERS WHERE USERNAME='{}'".format(enteredUsername))
         pasHash = user.fetchone()
         if pasHash[0] == hashlib.sha256(enteredPass.encode()).hexdigest():
             print("Login successful")
@@ -205,6 +208,7 @@ class quiz:
         self.HaveAccountText.place(relx=0.5, rely=0.8, anchor='center')
         self.loginButton2.place(relx=0.5, rely=0.87, anchor='center')
 
+
     def clearWindow3(self):
         self.heading3.place_forget()
         self.NameText.place_forget()
@@ -230,7 +234,7 @@ class quiz:
         enteredName=self.NameEntry.get()
         enteredUsername=self.userNameEntry2.get()
         enteredEmail=self.EmailEntry.get()
-        enteredPassword=self.passEntry2.get()     #passentry
+        enteredPassword=self.passEntry2.get()
         enteredConfirmpassword=self.confirmPassEntry.get()
 
 
@@ -246,8 +250,16 @@ class quiz:
             self.invalidPassword.place(relx=0.5, rely=0.2,anchor='center')
         else:
             self.clearWindow3()
-            #window5()
-        print("Button Clicked")
+            print("Button Clicked")
+            #window5
+            passHash = hashlib.sha256(enteredPassword.encode()).hexdigest()
+            user.execute("INSERT INTO USERS VALUES('{}','{}','{}','{}')".format(enteredName, enteredEmail,enteredUsername, passHash))
+            mycon.commit()
+
+            self.registeredMessage.place(relx=0.5, rely=0.4, anchor='center')
+            #time.sleep(3)
+            #self.registeredMessage.place_forget()
+
 
 
     #Window 8-----------------------------------------------------------------------------------------------------------
