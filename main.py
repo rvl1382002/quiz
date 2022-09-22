@@ -15,6 +15,7 @@ import random
 # window6=quiz window #moksha
 # window7=admin login
 # window8=Forgot Credentials and email verification
+#window9 = change password
 
 def sendMail(email):
     otp=str(random.randint(100000,999999))
@@ -28,6 +29,8 @@ def sendMail(email):
     except:
         print("Unable to reach the server")
 
+def verifyOTP():
+    print("under process")
 
 def isUserName(u):
 	for i in u:
@@ -117,7 +120,9 @@ class quiz:
         # window 4 widgets here
 
         # Window5 widgets
-        # window 5 widgets here
+        # using widgets name username email from window3
+        self.changePassButton = Button(tk, text='Change Password', height=1, width=15, font=myFont,bg="#07AD31", fg="white",
+                                    activebackground="white", command=self.window9)
 
         # Window6 widgets
         # window 6 widgets here
@@ -128,13 +133,22 @@ class quiz:
         # Window 8 widgets
         self.verifyEmailText = Label(tk, text="Verify your email id")
         self.enterUserMailText = Label(tk, text="Enter Username or E-mail id")
-        self.otpText = Label(tk, text-"Enter the OTP sent to your registered email id")
-        self.otpEntry = Entry(tk,width=6,height=3, font=("Rockwell",15))
+        self.otpText = Label(tk, text="Enter the OTP sent to your registered email id")
+        self.otpEntry = Entry(tk,width=6, font=("Rockwell",15))
         self.userMailEntry = Entry(tk, width=40)
         self.submitForgotCreds = Button(tk, text="Get e-mail",height=1,width=12, font=myFont,bg="#07AD31", fg="white",
                                    activebackground="white", command=sendMail)
         self.verifyOTPButton = Button(tk, text="Verify OTP",height=1,width=12, font=myFont,bg="#07AD31", fg="white",
                                    activebackground="white", command=verifyOTP)
+
+
+        #window9 widgets
+        self.heading9 = Label(tk, text='Change Password', font=('Rockwell',40,'bold'))
+        self.currentPassText = Label(tk, text='Current Password: ', font=('Rockwell', 18))
+        self.currentPassEntry = Entry(tk, width=40)
+        self.submitChangePassButton = Button(tk, text="Submit",height=1,width=12, font=myFont,bg="#07AD31", fg="white",
+                                   activebackground="white")#, command=verifyOTP)
+        # using window3 passtext2 and confirmpass
 
     # -------------------------------------------------------------------------------------------------------------------
     def window1(self):
@@ -198,7 +212,7 @@ class quiz:
         if pasHash[0] == hashlib.sha256(enteredPass.encode()).hexdigest():
             print("Login successful")
             self.clearWindow2()
-            # window5
+            self.window5()
         else:
             self.invalidLogin.place(relx=0.5, rely=0.3, anchor='center')
 
@@ -280,6 +294,22 @@ class quiz:
             #time.sleep(3)
             #self.registeredMessage.place_forget()
 
+#-----------------------------------------------------------------------------------------------------------------------
+    #window 5
+    def window5(self):
+        self.NameText.place(relx=0.25,rely=0.2,anchor='w')
+        self.userNameText2.place(relx=0.25,rely=0.28,anchor='w')
+        self.EmailText.place(relx=0.25,rely=0.36,anchor='w')
+        self.changePassButton.place(relx=0.45,rely=0.44,anchor='center')
+
+
+
+    def clearwindow5(self):
+        self.NameText.place_forget()
+        self.userNameText.place_forget()
+        self.EmailText.place_forget()
+        self.changePassButton.place_forget()
+
 
 
     #Window 8-----------------------------------------------------------------------------------------------------------
@@ -303,6 +333,19 @@ class quiz:
         self.submitForgotCreds.place_forget()
         self.verifyOTPButton.place_forget()
 
+#-------------------------------------------------------------------------------------------------------------------------
+    def window9(self):
+        self.clearwindow5()
+        self.heading9.place(relx=0.5, rely=0.1,anchor='center')
+        self.currentPassText.place(relx=0.4, rely=0.25,anchor='e')
+        self.currentPassEntry.place(relx=0.41, rely=0.25,anchor='w')
+        self.passText2.place(relx=0.4, rely=0.35, anchor='e')
+        self.passEntry2.place(relx=0.41, rely=0.35, anchor='w')
+        self.confirmPassText.place(relx=0.4, rely=0.45, anchor='e')
+        self.confirmPassEntry.place(relx=0.41, rely=0.45, anchor='w')
+        self.submitChangePassButton.place(relx=0.5,rely=0.6,anchor='center')
+
+
 if __name__ == '__main__':
     dbPass = "mokshada"  # change this as per your machine
     dbName = "quiz"  # change if database name is different on your machine
@@ -321,5 +364,5 @@ if __name__ == '__main__':
     myFont3 = font.Font(family='Rockwell', size=10) #Used for account
     tk.geometry('1200x700')
     ob = quiz()
-    ob.window1()
+    ob.window5()
     tk.mainloop()
