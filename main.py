@@ -4,6 +4,8 @@ import tkinter.font as font
 import mysql.connector as mc
 import re #for valid email
 import time
+import smtplib
+import random
 
 # window1=Home window
 # window2=login window
@@ -12,7 +14,20 @@ import time
 # window5=dashboard window #moksha
 # window6=quiz window #moksha
 # window7=admin login
-# window8=Forgot Credentials
+# window8=Forgot Credentials and email verification
+
+def sendMail(email):
+    otp=str(random.randint(100000,999999))
+    try:
+        server=smtplib.SMTP("smtp.gmail.com",587)
+        server.ehlo()
+        server.starttls()
+        server.login("root.rvl@gmail.com","gdpmznhjhqijiuas")
+        server.sendmail('root.rvl@gmail.com', email, "Subject:[No reply]\nOTP for email verification is "+otp)
+        server.close()
+    except:
+        print("Unable to reach the server")
+
 
 def isUserName(u):
 	for i in u:
@@ -111,10 +126,15 @@ class quiz:
         #Window 7 widgets here
 
         # Window 8 widgets
+        self.verifyEmailText = Label(tk, text="Verify your email id")
         self.enterUserMailText = Label(tk, text="Enter Username or E-mail id")
+        self.otpText = Label(tk, text-"Enter the OTP sent to your registered email id")
+        self.otpEntry = Entry(tk,width=6,height=3, font=("Rockwell",15))
         self.userMailEntry = Entry(tk, width=40)
         self.submitForgotCreds = Button(tk, text="Get e-mail",height=1,width=12, font=myFont,bg="#07AD31", fg="white",
-                                   activebackground="white", command=self.mailForOTP)
+                                   activebackground="white", command=sendMail)
+        self.verifyOTPButton = Button(tk, text="Verify OTP",height=1,width=12, font=myFont,bg="#07AD31", fg="white",
+                                   activebackground="white", command=verifyOTP)
 
     # -------------------------------------------------------------------------------------------------------------------
     def window1(self):
@@ -263,11 +283,25 @@ class quiz:
 
 
     #Window 8-----------------------------------------------------------------------------------------------------------
-    def window8(self,username):
+    def window8(self,x):
+        #x=1 represents verify email after registration; x=2 represents forgot username/password
+        if x==1:
+            self.verifyEmailText.place(relx=0.5,rely=1,anchor="center")
+        else:
+            self.userMailEntry.place(relx=0.5,rely=0.35,anchor="center")#continue here-------------------------------------------------------------------------
         self.enterUserMailText.place(relx=0.5,rely=0.35,anchor="center")
         self.userMailEntry.place(relx=0.5,rely=0.4,anchor="center")
         self.userMailEntry.insert(END,username)
         self.submitForgotCreds.place(relx=0.5,rely=0.5,anchor="center")
+
+    def clearWindow8(self):
+        self.verifyEmailText.place_forget()
+        self.enterUserMailText.place_forget()
+        self.otpText.place_forget()
+        self.otpEntry.place_forget()
+        self.userMailEntry.place_forget()
+        self.submitForgotCreds.place_forget()
+        self.verifyOTPButton.place_forget()
 
 if __name__ == '__main__':
     dbPass = "mokshada"  # change this as per your machine
