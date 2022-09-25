@@ -145,9 +145,10 @@ class quiz:
         #window9 widgets
         self.heading9 = Label(tk, text='Change Password', font=('Rockwell',40,'bold'))
         self.currentPassText = Label(tk, text='Current Password: ', font=('Rockwell', 18))
-        self.currentPassEntry = Entry(tk, width=40)
+        self.currentPassEntry = Entry(tk,show="*",width=40)
+        self.invalidCurrentPass = Label(tk,text="Invalid Current Password!", font=('Rockwell',15))
         self.submitChangePassButton = Button(tk, text="Submit",height=1,width=12, font=myFont,bg="#07AD31", fg="white",
-                                   activebackground="white")#, command=verifyOTP)
+                                   activebackground="white", command=self.changePass)
         # using window3 passtext2 and confirmpass
 
     # -------------------------------------------------------------------------------------------------------------------
@@ -205,9 +206,9 @@ class quiz:
         self.signupButton2.place_forget()
 
     def checkLogin(self):
-        enteredUsername = self.userNameEntry.get()
+        self.enteredUsername = self.userNameEntry.get()
         enteredPass = self.passEntry.get()
-        user.execute("SELECT PASSWORD FROM USERS WHERE USERNAME='{}'".format(enteredUsername))
+        user.execute("SELECT PASSWORD FROM USERS WHERE USERNAME='{}'".format(self.enteredUsername))
         pasHash = user.fetchone()
         if pasHash[0] == hashlib.sha256(enteredPass.encode()).hexdigest():
             print("Login successful")
@@ -306,7 +307,7 @@ class quiz:
 
     def clearwindow5(self):
         self.NameText.place_forget()
-        self.userNameText.place_forget()
+        self.userNameText2.place_forget()
         self.EmailText.place_forget()
         self.changePassButton.place_forget()
 
@@ -344,6 +345,34 @@ class quiz:
         self.confirmPassText.place(relx=0.4, rely=0.45, anchor='e')
         self.confirmPassEntry.place(relx=0.41, rely=0.45, anchor='w')
         self.submitChangePassButton.place(relx=0.5,rely=0.6,anchor='center')
+
+    def changePass(self):
+        # self.clearwindow9()
+        # print('button clicked')
+        enteredCurrentPass = self.currentPassEntry.get()
+        enteredPassword2 = self.passEntry2.get()
+        enteredConfirmpassword2 = self.confirmPassEntry.get()
+        if enteredCurrentPass == user.execute("SELECT PASSWORD FROM USERS WHERE USERNAME='{}'".format(self.enteredUsername)):
+            currentPass = user.fetchone()
+            if currentPass[0] == hashlib.sha256(enteredCurrentPass.encode()).hexdigest():
+                self.invalidCurrentPass.place(relx=0.5, rely=0.2, anchor='center')
+            else:
+                pass
+        elif enteredPassword2 != enteredConfirmpassword2:
+            self.invalidPassword.place(relx=0.5, rely=0.2, anchor='center')
+        else:
+            self.clearwindow9()
+
+    def clearwindow9(self):
+        self.heading9.place_forget()
+        self.currentPassText.place_forget()
+        self.currentPassEntry.place_forget()
+        self.passText2.place_forget()
+        self.passEntry2.place_forget()
+        self.confirmPassText.place_forget()
+        self.confirmPassEntry.place_forget()
+        self.submitChangePassButton.place_forget()
+
 
 
 if __name__ == '__main__':
