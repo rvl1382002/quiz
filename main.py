@@ -23,14 +23,12 @@ def sendMail(email):
         server=smtplib.SMTP("smtp.gmail.com",587)
         server.ehlo()
         server.starttls()
-        server.login("root.rvl@gmail.com","gdpmznhjhqijiuas")
+        server.login("root.rvl@gmail.com","")
         server.sendmail('root.rvl@gmail.com', email, "Subject:[No reply]\nOTP for email verification is "+otp)
         server.close()
     except:
         print("Unable to reach the server")
 
-def verifyOTP():
-    print("under process")
 
 def isUserName(u):
 	for i in u:
@@ -352,7 +350,9 @@ class quiz:
         enteredCurrentPass = self.currentPassEntry.get()
         enteredPassword2 = self.passEntry2.get()
         enteredConfirmpassword2 = self.confirmPassEntry.get()
-        if enteredCurrentPass == user.execute("SELECT PASSWORD FROM USERS WHERE USERNAME='{}'".format(self.enteredUsername)):
+        user.execute("SELECT PASSWORD FROM USERS WHERE USERNAME='{}'".format(self.enteredUsername))
+        currentPass=user.fetchone()[0] #hash from database
+        if enteredCurrentPass == currentPass:
             currentPass = user.fetchone()
             if currentPass[0] == hashlib.sha256(enteredCurrentPass.encode()).hexdigest():
                 self.invalidCurrentPass.place(relx=0.5, rely=0.2, anchor='center')
@@ -376,7 +376,7 @@ class quiz:
 
 
 if __name__ == '__main__':
-    dbPass = "mokshada"  # change this as per your machine
+    dbPass = "Ridd_hish"  # change this as per your machine
     dbName = "quiz"  # change if database name is different on your machine
     try:
         mycon = mc.connect(host="localhost", user="root", password=dbPass, database=dbName)
