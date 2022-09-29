@@ -1,6 +1,7 @@
 import hashlib #for password
 from tkinter import *
 import tkinter.font as font
+from tkinter import messagebox
 import mysql.connector as mc
 import re #for valid email
 import time
@@ -9,10 +10,10 @@ import random
 
 # window1=Home window
 # window2=login window
-# window3=signup window #moksha
+# window3=signup window
 # window4=leaderboard window
-# window5=dashboard window #moksha
-# window6=quiz window #moksha
+# window5=dashboard window
+# window6=quiz window
 # window7=admin login
 # window8=Forgot Credentials and email verification
 #window9 = change password
@@ -29,6 +30,8 @@ def sendMail(email):
     except:
         print("Unable to reach the server")
 
+def verifyOTP():
+    print("under process")
 
 def isUserName(u):
 	for i in u:
@@ -117,7 +120,7 @@ class quiz:
         # Window4 widgets
         # window 4 widgets here
 
-        # Window5 widgets
+        # Window5 widgets : dashboard
         # using widgets name username email from window3
         self.changePassButton = Button(tk, text='Change Password', height=1, width=15, font=myFont,bg="#07AD31", fg="white",
                                     activebackground="white", command=self.window9)
@@ -128,7 +131,7 @@ class quiz:
         #Window7 widgets
         #Window 7 widgets here
 
-        # Window 8 widgets
+        # Window 8 widgets : forget username and password
         self.verifyEmailText = Label(tk, text="Verify your email id")
         self.enterUserMailText = Label(tk, text="Enter Username or E-mail id")
         self.otpText = Label(tk, text="Enter the OTP sent to your registered email id")
@@ -140,7 +143,7 @@ class quiz:
                                    activebackground="white", command=verifyOTP)
 
 
-        #window9 widgets
+        #window9 widgets : change password
         self.heading9 = Label(tk, text='Change Password', font=('Rockwell',40,'bold'))
         self.currentPassText = Label(tk, text='Current Password: ', font=('Rockwell', 18))
         self.currentPassEntry = Entry(tk,show="*",width=40)
@@ -264,18 +267,23 @@ class quiz:
         self.ExistUsername.place_forget()
 
     def register(self):
+        self.invalidUsername.place_forget()
+        self.invalidEmail.place_forget()
+        self.ExistEmail.place_forget()
+        self.ExistUsername.place_forget()
+        self.invalidPassword.place_forget()
+
         enteredName=self.NameEntry.get()
-        enteredUsername=self.userNameEntry2.get()
+        self.enteredUsername=self.userNameEntry2.get()
         enteredEmail=self.EmailEntry.get()
         enteredPassword=self.passEntry2.get()
         enteredConfirmpassword=self.confirmPassEntry.get()
 
-
-        if not isUserName(enteredUsername):
+        if not isUserName(self.enteredUsername):
             self.invalidUsername.place(relx=0.5, rely=0.2, anchor='center')
         elif not isEmail(enteredEmail):
             self.invalidEmail.place(relx=0.5,rely=0.2,anchor='center')
-        elif usernameExists(enteredUsername):
+        elif usernameExists(self.enteredUsername):
             self.ExistUsername.place(relx=0.5,rely=0.2,anchor='center')
         elif emailExists(enteredEmail):
             self.ExistEmail.place(relx=0.5,rely=0.2,anchor='center')
@@ -286,12 +294,14 @@ class quiz:
             print("Button Clicked")
             #window5
             passHash = hashlib.sha256(enteredPassword.encode()).hexdigest()
-            user.execute("INSERT INTO USERS VALUES('{}','{}','{}','{}')".format(enteredName, enteredEmail,enteredUsername, passHash))
+            user.execute("INSERT INTO USERS VALUES('{}','{}','{}','{}')".format(enteredName, enteredEmail,self.enteredUsername, passHash))
             mycon.commit()
+            messagebox.showinfo("Congrats!","Registered Successfully")
+            # self.registeredMessage.place(relx=0.5, rely=0.4, anchor='center')
+            # time.sleep(3)
+            # self.registeredMessage.place_forget()
+            self.window5()
 
-            self.registeredMessage.place(relx=0.5, rely=0.4, anchor='center')
-            #time.sleep(3)
-            #self.registeredMessage.place_forget()
 
 #-----------------------------------------------------------------------------------------------------------------------
     #window 5
@@ -345,22 +355,21 @@ class quiz:
         self.submitChangePassButton.place(relx=0.5,rely=0.6,anchor='center')
 
     def changePass(self):
-        # self.clearwindow9()
-        # print('button clicked')
+        self.invalidCurrentPass.place_forget()
+        self.invalidPassword.place_forget()
+
         enteredCurrentPass = self.currentPassEntry.get()
         enteredPassword2 = self.passEntry2.get()
         enteredConfirmpassword2 = self.confirmPassEntry.get()
         user.execute("SELECT PASSWORD FROM USERS WHERE USERNAME='{}'".format(self.enteredUsername))
-        currentPass=user.fetchone()[0] #hash from database
-        if enteredCurrentPass == currentPass:
-            currentPass = user.fetchone()
-            if currentPass[0] == hashlib.sha256(enteredCurrentPass.encode()).hexdigest():
-                self.invalidCurrentPass.place(relx=0.5, rely=0.2, anchor='center')
-            else:
-                pass
+        currentpass = user.fetchone()[0]
+        if hashlib.sha256(enteredCurrentPass.encode()).hexdigest() != currentpass:
+            self.invalidCurrentPass.place(relx=0.5, rely=0.2, anchor='center')
         elif enteredPassword2 != enteredConfirmpassword2:
             self.invalidPassword.place(relx=0.5, rely=0.2, anchor='center')
         else:
+            user.execute("UPDATE USERS SET PASSWORD='{}' WHERE USERNAME='{}'".format(hashlib.sha256(enteredPassword2.encode()).hexdigest(), self.enteredUsername))
+            mycon.commit()
             self.clearwindow9()
 
     def clearwindow9(self):
@@ -373,10 +382,8 @@ class quiz:
         self.confirmPassEntry.place_forget()
         self.submitChangePassButton.place_forget()
 
-
-
 if __name__ == '__main__':
-    dbPass = "Ridd_hish"  # change this as per your machine
+    dbPass = "mokshada"  # change this as per your machine
     dbName = "quiz"  # change if database name is different on your machine
     try:
         mycon = mc.connect(host="localhost", user="root", password=dbPass, database=dbName)
@@ -393,5 +400,5 @@ if __name__ == '__main__':
     myFont3 = font.Font(family='Rockwell', size=10) #Used for account
     tk.geometry('1200x700')
     ob = quiz()
-    ob.window5()
+    ob.window1()
     tk.mainloop()
