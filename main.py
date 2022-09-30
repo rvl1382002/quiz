@@ -18,7 +18,7 @@ import random
 # window8=Forgot Credentials and email verification
 # window9 = change password
 # window10 = result
-
+# CREATING SUBJECT TABLE: CREATE TABLE C(ID INT PRIMARY KEY AUTO_INCREMENT, QUESTION VARCHAR(300),OPT1 VARCHAR(50),OPT2 VARCHAR(50),OPT3 VARCHAR(50),OPT4 VARCHAR(50),CORRECT_ANS BINARY(4));
 def sendMail(email):
     otp=str(random.randint(100000,999999))
     try:
@@ -123,6 +123,10 @@ class quiz:
         # using widgets name username email from window3
         self.changePassButton = Button(tk, text='Change Password', height=1, width=15, font=myFont,bg="#07AD31", fg="white",
                                     activebackground="white", command=self.window9)
+        self.giveQuiz = Label(tk,text='Give Quiz',font=myFont)
+        self.giveQuizButton = Button(tk, text='Submit', height=1, width=7, font=myFont,bg="#07AD31", fg="white",
+                                    activebackground="white", command=self.giveQuizClicked)
+        self.select_sub = Label(tk, text='Please Select a Subject', font=myFont)
 
         # Window6 widgets
         # window 6 widgets here
@@ -319,6 +323,17 @@ class quiz:
         self.getUsername.place(relx=0.37, rely=0.28, anchor='w')
         self.getEmail.place(relx=0.37,rely=0.36,anchor='w')
 
+        admin.execute("SHOW TABLES")
+        subjects = [j for i in admin.fetchall() for j in i]
+        # print(subjects)
+        self.sub_list = StringVar()
+        self.sub_list.set('Select any subject')
+        self.display_sub = OptionMenu(tk, self.sub_list, *subjects)
+
+        self.giveQuiz.place(relx=0.85,rely=0.19, anchor='center')
+        self.display_sub.place(relx=0.85, rely=0.24, anchor='center')
+        self.giveQuizButton.place(relx=0.85, rely=0.31, anchor='center')
+
     def clearwindow5(self):
         self.NameText.place_forget()
         self.userNameText2.place_forget()
@@ -327,6 +342,21 @@ class quiz:
         self.getName.place_forget()
         self.getUsername.place_forget()
         self.getEmail.place_forget()
+        self.giveQuiz.place_forget()
+        self.display_sub.place_forget()
+        self.giveQuizButton.place_forget()
+        self.select_sub.place_forget()
+
+    def giveQuizClicked(self):
+        self.subjectName = self.sub_list.get()
+        print(self.subjectName)
+        if self.subjectName == 'Select any subject':
+            self.select_sub.place(relx=0.85, rely=0.1,anchor='center')
+        else:
+            self.clearwindow5()
+            # self.window6()
+
+
 
     #Window 8-----------------------------------------------------------------------------------------------------------
     def window8(self,x):
@@ -394,7 +424,7 @@ class quiz:
         self.submitChangePassButton.place_forget()
 
 if __name__ == '__main__':
-    dbPass = "Ridd_hish"  # change this as per your machine
+    dbPass = "mokshada"  # change this as per your machine
     try:
         mycon = mc.connect(host="localhost", user="root", password=dbPass, database="quiz")
         mycon2 = mc.connect(host="localhost",user="root",password=dbPass, database="quiz_admin")
@@ -411,5 +441,6 @@ if __name__ == '__main__':
     myFont3 = font.Font(family='Rockwell', size=10) #Used for account
     tk.geometry('1200x700')
     ob = quiz()
+    ob.enteredUsername="siya"
     ob.window5()
     tk.mainloop()
