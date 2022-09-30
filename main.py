@@ -3,7 +3,7 @@ from tkinter import *
 import tkinter.font as font
 from tkinter import messagebox
 import mysql.connector as mc
-import re #for valid email
+import re #for checking valid email
 import time
 import smtplib
 import random
@@ -16,7 +16,8 @@ import random
 # window6=quiz window
 # window7=admin login
 # window8=Forgot Credentials and email verification
-#window9 = change password
+# window9 = change password
+# window10 = result
 
 def sendMail(email):
     otp=str(random.randint(100000,999999))
@@ -390,12 +391,12 @@ class quiz:
         self.submitChangePassButton.place_forget()
 
 if __name__ == '__main__':
-    dbPass = "mokshada"  # change this as per your machine
-    dbName = "quiz"  # change if database name is different on your machine
+    dbPass = "Ridd_hish"  # change this as per your machine
     try:
-        mycon = mc.connect(host="localhost", user="root", password=dbPass, database=dbName)
+        mycon = mc.connect(host="localhost", user="root", password=dbPass, database="quiz")
+        mycon2 = mc.connect(host="localhost",user="root",password=dbPass, database="quiz_admin")
         user = mycon.cursor()
-
+        admin = mycon2.cursor()
     except:
         print("Error connecting to the database...!\nPlease try again after sometime.")
         print("We are sorry for the inconvenience")
