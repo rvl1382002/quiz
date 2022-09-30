@@ -127,6 +127,8 @@ class quiz:
         self.giveQuizButton = Button(tk, text='Submit', height=1, width=7, font=myFont,bg="#07AD31", fg="white",
                                     activebackground="white", command=self.giveQuizClicked)
         self.select_sub = Label(tk, text='Please Select a Subject', font=myFont)
+        self.LogoutButton = Button(tk, text='Logout', height=1, width=7, font=myFont,bg="#07AD31", fg="white",
+                                    activebackground="white", command=self.logout)
 
         # Window6 widgets
         # window 6 widgets here
@@ -197,6 +199,8 @@ class quiz:
         self.signupButton2.place(relx=0.5, rely=0.78, anchor='center')
 
     def clearWindow2(self):
+        self.userNameEntry.delete(0,END)
+        self.passEntry.delete(0,END)
         self.heading2.place_forget()
         self.userNameText.place_forget()
         self.userNameEntry.place_forget()
@@ -333,6 +337,12 @@ class quiz:
         self.giveQuiz.place(relx=0.85,rely=0.19, anchor='center')
         self.display_sub.place(relx=0.85, rely=0.24, anchor='center')
         self.giveQuizButton.place(relx=0.85, rely=0.31, anchor='center')
+        self.LogoutButton.place(relx=0.5,rely=0.9,anchor='center')
+
+    def logout(self):
+        self.enteredUsername = None
+        self.clearwindow5()
+        self.window1()
 
     def clearwindow5(self):
         self.NameText.place_forget()
@@ -346,6 +356,7 @@ class quiz:
         self.display_sub.place_forget()
         self.giveQuizButton.place_forget()
         self.select_sub.place_forget()
+        self.LogoutButton.place_forget()
 
     def giveQuizClicked(self):
         self.subjectName = self.sub_list.get()
