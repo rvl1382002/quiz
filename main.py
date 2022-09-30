@@ -264,7 +264,6 @@ class quiz:
         self.ExistEmail.place_forget()
         self.ExistUsername.place_forget()
 
-
     def register(self):
         self.invalidUsername.place_forget()
         self.invalidEmail.place_forget()
@@ -378,8 +377,12 @@ class quiz:
             user.execute("UPDATE USERS SET PASSWORD='{}' WHERE USERNAME='{}'".format(hashlib.sha256(enteredPassword2.encode()).hexdigest(), self.enteredUsername))
             mycon.commit()
             self.clearwindow9()
+            self.window5()
 
     def clearwindow9(self):
+        self.currentPassEntry.delete(0, END)
+        self.passEntry2.delete(0,END)
+        self.confirmPassEntry.delete(0,END)
         self.heading9.place_forget()
         self.currentPassText.place_forget()
         self.currentPassEntry.place_forget()
@@ -407,5 +410,5 @@ if __name__ == '__main__':
     myFont3 = font.Font(family='Rockwell', size=10) #Used for account
     tk.geometry('1200x700')
     ob = quiz()
-    ob.window1()
+    ob.window5()
     tk.mainloop()
