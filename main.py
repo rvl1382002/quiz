@@ -46,7 +46,6 @@ def isEmail(email):
     else:
         return False
 
-
 def usernameExists(u):#incomplete
     user.execute("SELECT USERNAME FROM USERS")
     existingUsernames=user.fetchall()
@@ -54,7 +53,6 @@ def usernameExists(u):#incomplete
         return True
     else:
         return False
-
 
 def emailExists(u):
     user.execute('SELECT EMAIL FROM USERS')
@@ -142,7 +140,6 @@ class quiz:
         self.verifyOTPButton = Button(tk, text="Verify OTP",height=1,width=12, font=myFont,bg="#07AD31", fg="white",
                                    activebackground="white", command=verifyOTP)
 
-
         #window9 widgets : change password
         self.heading9 = Label(tk, text='Change Password', font=('Rockwell',40,'bold'))
         self.currentPassText = Label(tk, text='Current Password: ', font=('Rockwell', 18))
@@ -211,7 +208,7 @@ class quiz:
         enteredPass = self.passEntry.get()
         user.execute("SELECT PASSWORD FROM USERS WHERE USERNAME='{}'".format(self.enteredUsername))
         pasHash = user.fetchone()
-        if pasHash[0] == hashlib.sha256(enteredPass.encode()).hexdigest():
+        if pasHash!=None and pasHash[0] == hashlib.sha256(enteredPass.encode()).hexdigest():
             print("Login successful")
             self.clearWindow2()
             self.window5()
@@ -244,8 +241,9 @@ class quiz:
         self.HaveAccountText.place(relx=0.5, rely=0.8, anchor='center')
         self.loginButton2.place(relx=0.5, rely=0.87, anchor='center')
 
-
     def clearWindow3(self):
+        self.passEntry2.delete(0,END)
+        self.confirmPassEntry.delete(0,END)
         self.heading3.place_forget()
         self.NameText.place_forget()
         self.NameEntry.place_forget()
@@ -265,6 +263,7 @@ class quiz:
         self.invalidUsername.place_forget()
         self.ExistEmail.place_forget()
         self.ExistUsername.place_forget()
+
 
     def register(self):
         self.invalidUsername.place_forget()
@@ -302,7 +301,6 @@ class quiz:
             # self.registeredMessage.place_forget()
             self.window5()
 
-
 #-----------------------------------------------------------------------------------------------------------------------
     #window 5
     def window5(self):
@@ -310,16 +308,25 @@ class quiz:
         self.userNameText2.place(relx=0.25,rely=0.28,anchor='w')
         self.EmailText.place(relx=0.25,rely=0.36,anchor='w')
         self.changePassButton.place(relx=0.45,rely=0.44,anchor='center')
+        user.execute("SELECT NAME,EMAIL FROM USERS WHERE USERNAME='{}'".format(self.enteredUsername))
+        self.userData = user.fetchone()
+        #widgets
+        self.getName = Label(tk, text=self.userData[0], font=myFont)
+        self.getUsername = Label(tk, text=self.enteredUsername, font=myFont)
+        self.getEmail = Label(tk, text=self.userData[1], font=myFont)
 
-
+        self.getName.place(relx=0.37,rely=0.2,anchor='w')
+        self.getUsername.place(relx=0.37, rely=0.28, anchor='w')
+        self.getEmail.place(relx=0.37,rely=0.36,anchor='w')
 
     def clearwindow5(self):
         self.NameText.place_forget()
         self.userNameText2.place_forget()
         self.EmailText.place_forget()
         self.changePassButton.place_forget()
-
-
+        self.getName.place_forget()
+        self.getUsername.place_forget()
+        self.getEmail.place_forget()
 
     #Window 8-----------------------------------------------------------------------------------------------------------
     def window8(self,x):
