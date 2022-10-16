@@ -47,6 +47,7 @@ def isEmail(email):
     else:
         return False
 
+
 def usernameExists(u):#incomplete
     user.execute("SELECT USERNAME FROM USERS")
     existingUsernames=user.fetchall()
@@ -132,6 +133,11 @@ class quiz:
 
         # Window6 widgets
         # window 6 widgets here
+        self.DisplayName = Label(tk, text="Aryan Nitin Yadav", font=("Rockwell", 22))
+        self.PickedSubject = Label(tk, text="Python", font=("Rockwell", 22))
+        self.NextButton = Button(tk, text="Next", height=1, width=7, font=myFont, bg="#07AD31", fg="white", activebackground="white", command=self.NextQues)
+        self.PrevButton = Button(tk, text="Previous", height=1, width=7, font=myFont, bg="#07AD31", fg="white", activebackground = "white", command = self.PrevQues)
+        self.SubmitButton = Button(tk, text="Submit", height=1, width=7, font=myFont, bg="#07AD31", fg="white", activebackground = "white", command = self.window1)
 
         #Window7 widgets
         #Window 7 widgets here
@@ -368,6 +374,63 @@ class quiz:
             # self.window6()
 
 
+    #Window 6-----------------------------------------------------------------------------------------------------------
+    Que_Count=1
+    def window6(self):
+        self.DisplayName.place(relx=0.2, rely=0.15, anchor='w')
+        self.PickedSubject.place(relx=0.6, rely=0.15, anchor='w')
+        self.Quiz_In_Prog(1)
+    def Quiz_In_Prog(self,Que_Count):
+        if self.Que_Count==1:
+            self.NextButton.place(rely=0.85, relx=0.2, anchor='w')
+        elif self.Que_Count==7:
+            self.PrevButton.place(rely=0.85, relx=0.5, anchor='w')
+            self.SubmitButton.place(rely=0.85, relx=0.8, anchor='w')
+        else:
+            self.NextButton.place(rely=0.85, relx=0.2, anchor='w')
+            self.PrevButton.place(rely=0.85, relx=0.5, anchor='w')
+        #Take Number of questions from database and make a random list of 10 question IDs
+        if (Que_Count>=1 and Que_Count<=10):
+            print(Que_Count)
+            admin.execute("SELECT * FROM PYTHON WHERE ID='{}'".format(self.Que_Count))
+            self.QueInfo=admin.fetchall()
+            self.QQuestion=Label(tk, text="Q."+str(self.QueInfo[0][0])+str(self.QueInfo[0][1]), font=('myFont',20))
+            self.QQuestion.place(relx=0.1, rely=0.25, anchor='w')
+            answer = StringVar()
+            self.opt1 = Radiobutton(tk, text=self.QueInfo[0][2], padx=5, value=0,
+                                    font=('myFont', 12)).place(relx=0.1, rely=0.4)
+            self.opt2 = Radiobutton(tk, text=self.QueInfo[0][3], padx=5, value=1,
+                                    font=('myFont', 12)).place(relx=0.5, rely=0.4)
+            self.opt3 = Radiobutton(tk, text=self.QueInfo[0][4], padx=5, value=2,
+                                    font=('myFont', 12)).place(relx=0.1, rely=0.6)
+            self.opt4 = Radiobutton(tk, text=self.QueInfo[0][5], padx=5, value=3,
+                                    font=('myFont', 12)).place(relx=0.5, rely=0.6)
+    def Trans(self):
+        answer = StringVar()
+        bs="      "*20
+        self.QQuestion.place_forget()
+        self.opt1 = Radiobutton(tk, text=str(bs), padx=5, value=0,
+                                font=('myFont', 12)).place(relx=0.1, rely=0.4)
+        self.opt2 = Radiobutton(tk, text=str(bs), padx=5, value=1,
+                                font=('myFont', 12)).place(relx=0.5, rely=0.4)
+        self.opt3 = Radiobutton(tk, text=str(bs), padx=5, value=2,
+                                font=('myFont', 12)).place(relx=0.1, rely=0.6)
+        self.opt4 = Radiobutton(tk, text=str(bs), padx=5, value=3,
+                                font=('myFont', 12)).place(relx=0.5, rely=0.6)
+        self.NextButton.place_forget()
+        self.PrevButton.place_forget()
+
+    def NextQues(self):
+        self.Que_Count = self.Que_Count + 1
+        self.Trans()
+        self.Quiz_In_Prog(self.Que_Count)
+    def PrevQues(self):
+        self.Que_Count = self.Que_Count - 1
+        self.Trans()
+        self.Quiz_In_Prog(self.Que_Count)
+    def SubmitButton(self):
+        self.Que_Count = self.Que_Count + 0
+        print("Quiz Ended")
 
     #Window 8-----------------------------------------------------------------------------------------------------------
     def window8(self,x):
@@ -435,7 +498,7 @@ class quiz:
         self.submitChangePassButton.place_forget()
 
 if __name__ == '__main__':
-    dbPass = "mokshada"  # change this as per your machine
+    dbPass = "iamamy"  # change this as per your machine
     try:
         mycon = mc.connect(host="localhost", user="root", password=dbPass, database="quiz")
         mycon2 = mc.connect(host="localhost",user="root",password=dbPass, database="quiz_admin")
@@ -453,5 +516,5 @@ if __name__ == '__main__':
     tk.geometry('1200x700')
     ob = quiz()
     ob.enteredUsername="siya"
-    ob.window5()
+    ob.window6()
     tk.mainloop()
