@@ -498,7 +498,7 @@ class quiz:
         self.submitChangePassButton.place_forget()
 
 if __name__ == '__main__':
-    dbPass = "iamamy"  # change this as per your machine
+    dbPass = "mokshada"  # change this as per your machine
     try:
         mycon = mc.connect(host="localhost", user="root", password=dbPass, database="quiz")
         mycon2 = mc.connect(host="localhost",user="root",password=dbPass, database="quiz_admin")
@@ -515,6 +515,6 @@ if __name__ == '__main__':
     myFont3 = font.Font(family='Rockwell', size=10) #Used for account
     tk.geometry('1200x700')
     ob = quiz()
-    ob.enteredUsername="siya"
-    ob.window6()
+    # ob.enteredUsername="siya"
+    ob.window1()
     tk.mainloop()
