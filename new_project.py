@@ -19,7 +19,7 @@ class quiz:
 
         #login form
         self.loginLabel = ctk.CTkLabel(self.frame, text="Login",text_color='#4D9AD4', font=('rockwell',30,'bold')) #, fg_color=("white", "gray75"))
-        self.usernameEntry = ctk.CTkEntry(self.frame, width=250, placeholder_text='Username',border_width=2, border_color='#55ABEB',
+        self.usernameEntry = ctk.CTkEntry(self.frame, width=250, placeholder_text=u'\U0001F464'+'   Username',border_width=2, border_color='#55ABEB',
                                           corner_radius=60, placeholder_text_color='#55ABEB')
         self.forgotUsername = ctk.CTkButton(self.frame, text='Forgot username?', font=('rockwell', 14), fg_color='transparent',
                                             text_color='#55ABEB', hover_color='#C7E2FF', command=self.forgotusername)
@@ -60,7 +60,7 @@ class quiz:
         print("Sign Up Clicked")
 
 if __name__ == "__main__":
-    dbPass = 'mokshada'
+    dbPass = 'Ridd_hish'
     try:
         mycon = mc.connect(host='localhost', user='root', password=dbPass, database='quiz')
         user = mycon.cursor()
