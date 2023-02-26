@@ -12,21 +12,21 @@ class quiz:
         # window1 widgets : Login / Home
         #insert image
         self.img1 = ctk.CTkImage(Image.open("bgimage.png"), size=(500,500))
-        self.imglabel1 = ctk.CTkLabel(root, image=self.img1)
+        self.imglabel1 = ctk.CTkLabel(root, text='', image=self.img1)
 
         self.img2 = ctk.CTkImage(Image.open("quiz_logo.png"), size=(150,150))
-        self.imglabel2 = ctk.CTkLabel(root, image=self.img2)
+        self.imglabel2 = ctk.CTkLabel(root, text='', image=self.img2)
 
         #create frame for login
-        self.frame = ctk.CTkFrame(root, width=320, height=400, fg_color='transparent') #fg_color='white'
+        self.frame = ctk.CTkFrame(root, width=320, height=400, fg_color='transparent')
 
         #login form
-        self.Home = ctk.CTkButton(root, text="Home", text_color='#4D9AD4', font=('rockwell',15), fg_color='transparent',
-                                  hover_color='#C7E2FF', width=70, corner_radius=0, command=self.home)
+        self.home = ctk.CTkButton(root, text="Home", text_color='#4D9AD4', font=('rockwell',15), fg_color='transparent',
+                                  hover_color='#C7E2FF', width=70, corner_radius=0, command=self.Home)
         self.AboutUs = ctk.CTkButton(root, text="About Us", text_color='#4D9AD4', font=('rockwell', 15),fg_color='transparent',
-                                    hover_color='#C7E2FF', width=80, corner_radius=0, command=self.about_us)
+                                    hover_color='#C7E2FF', width=80, corner_radius=0, command=self.aboutUs)
         self.ContactUs = ctk.CTkButton(root, text="Contact Us", text_color='#4D9AD4', font=('rockwell', 15),fg_color='transparent',
-                                        hover_color='#C7E2FF', width=80, corner_radius=0, command=self.contact_us)
+                                        hover_color='#C7E2FF', width=80, corner_radius=0, command=self.contactUs)
         self.loginLabel = ctk.CTkLabel(self.frame, text="Login",text_color='#4D9AD4', font=('rockwell',30,'bold')) #, fg_color=("white", "gray75"))
         self.usernameEntry = ctk.CTkEntry(self.frame, width=250, placeholder_text=u'\U0001F464'+'   Username',border_width=2, border_color='#55ABEB',
                                           corner_radius=60, placeholder_text_color='#55ABEB')
@@ -36,8 +36,8 @@ class quiz:
                                           border_color='#55ABEB',placeholder_text_color='#55ABEB', corner_radius=60)
         self.forgotPass = ctk.CTkButton(self.frame, text='Forgot password?', font=('rockwell', 14), fg_color='transparent',
                                         text_color='#55ABEB', hover_color='#C7E2FF', command=self.forgotpassword)
-        self.loginButton = ctk.CTkButton(self.frame, text='Login', font=('rockwell', 20, 'bold'), fg_color='#55ABEB',text_color='white',
-                                         width=250, corner_radius=0, command=self.login) #, hover_color='White')
+        self.loginButton1 = ctk.CTkButton(self.frame, text='Login', font=('rockwell', 20, 'bold'), fg_color='#55ABEB',text_color='white',
+                                         width=250, corner_radius=0, command=self.checkLogin) #, hover_color='White')
 
         self.noAccount = ctk.CTkLabel(self.frame, text="Don't have an account?", text_color='black', font=('rockwell',14))
         self.signupButton = ctk.CTkButton(self.frame, text='Sign Up', font=('rockwell', 15, 'bold'),fg_color='transparent',text_color='#55ABEB',
@@ -47,22 +47,37 @@ class quiz:
         #window 2 widgets : Sign Up
         #insert image : use same widgets for logo and background image
         #create frame for signup
-        # self.SignUpFrame = ctk.CTkFrame(root, width=320, height=400, fg_color='transparent')
+        self.SignUpFrame = ctk.CTkFrame(root, width=320, height=500, fg_color='transparent')
         #use same frame for signup also
         # Sign Up form
-        self.Home = ctk.CTkButton(root, text="Home", text_color='#4D9AD4', font=('rockwell', 15), fg_color='transparent',
-                                  hover_color='#C7E2FF', width=70, corner_radius=0, command=self.home)
+        self.home = ctk.CTkButton(root, text="Home", text_color='#4D9AD4', font=('rockwell', 15), fg_color='transparent',
+                                  hover_color='#C7E2FF', width=70, corner_radius=0, command=self.Home)
         self.AboutUs = ctk.CTkButton(root, text="About Us", text_color='#4D9AD4', font=('rockwell', 15), fg_color='transparent',
-                                     hover_color='#C7E2FF', width=80, corner_radius=0, command=self.about_us)
+                                     hover_color='#C7E2FF', width=80, corner_radius=0, command=self.aboutUs)
         self.ContactUs = ctk.CTkButton(root, text="Contact Us", text_color='#4D9AD4', font=('rockwell', 15), fg_color='transparent',
-                                       hover_color='#C7E2FF', width=80, corner_radius=0, command=self.contact_us)
-        self.signupLabel = ctk.CTkLabel(self.frame, text="Sign Up",text_color='#4D9AD4', font=('rockwell',30,'bold'))
+                                       hover_color='#C7E2FF', width=80, corner_radius=0, command=self.contactUs)
+        self.signupLabel = ctk.CTkLabel(self.SignUpFrame, text="Sign Up",text_color='#4D9AD4', font=('rockwell',30,'bold'))
+        self.nameEntry = ctk.CTkEntry(self.SignUpFrame, width=250, placeholder_text='Enter your name here',border_width=2, border_color='#55ABEB',
+                                          corner_radius=60, placeholder_text_color='#55ABEB')
+        self.emailEntry = ctk.CTkEntry(self.SignUpFrame, width=250, placeholder_text='Enter valid email id', border_width=2, border_color='#55ABEB',
+                                       corner_radius=60, placeholder_text_color='#55ABEB')
+        self.SignupUsernameEntry = ctk.CTkEntry(self.SignUpFrame, width=250, placeholder_text=u'\U0001F464' + '   Username',border_width=2, border_color='#55ABEB',
+                                          corner_radius=60, placeholder_text_color='#55ABEB')
+        self.SignupPassEntry = ctk.CTkEntry(self.SignUpFrame, show='*', width=250, placeholder_text=u'\U0001F512' + '   Password',
+                                          border_color='#55ABEB', placeholder_text_color='#55ABEB', corner_radius=60)
+        self.reenterpassEntry = ctk.CTkEntry(self.SignUpFrame, show='*', width=250,placeholder_text=u'\U0001F512' + '   Re-Enter Password',
+                                          border_color='#55ABEB', placeholder_text_color='#55ABEB', corner_radius=60)
+        self.submitsignup = ctk.CTkButton(self.SignUpFrame, text="Submit", text_color='white', font=('rockwell',20,'bold'), fg_color='#55ABEB',
+                                        width=250, corner_radius=0, command=self.SubmitSignUp)
+        self.haveAccount = ctk.CTkLabel(self.SignUpFrame, text="Already have an account?", text_color='black', font=('rockwell', 14))
+        self.loginButton2 = ctk.CTkButton(self.SignUpFrame, text='Login', font=('rockwell', 15, 'bold'),fg_color='transparent',text_color='#55ABEB',
+                                          width=70, hover_color='#C7E2FF', corner_radius=0, command=self.login)
 
 
-
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------------
     def window1(self):
         self.imglabel2.place(relx=0.1,rely=0.06,anchor='center')
-        self.Home.place(relx=0.2, rely=0.06,anchor='center')
+        self.home.place(relx=0.2, rely=0.06,anchor='center')
         self.AboutUs.place(relx=0.3, rely=0.06,anchor='center')
         self.ContactUs.place(relx=0.4,rely=0.06,anchor='center')
         # self.label.pack()
@@ -74,66 +89,92 @@ class quiz:
         self.forgotUsername.place(relx=0.51,rely=0.38,anchor='e')
         self.passwordEntry.place(relx=0.5, rely=0.5,anchor='center')
         self.forgotPass.place(relx=0.51, rely=0.58,anchor='e')
-        self.loginButton.place(relx=0.5, rely=0.7,anchor='center')
+        self.loginButton1.place(relx=0.5, rely=0.7,anchor='center')
         self.noAccount.place(relx=0.6, rely=0.9, anchor='e')
         self.signupButton.place(relx=0.6,rely=0.9, anchor='w')
 
-    def home(self):
+    def Home(self):
+        self.window1()
         print("Home Botton Clicked")
 
-    def about_us(self):
-        self.clear_window1()
+    def aboutUs(self):
+        self.clearWindow1()
         print("About Us Button Clicked")
 
-    def contact_us(self):
-        self.clear_window1()
+    def contactUs(self):
+        self.clearWindow1()
         print("Contact Us Button Clicked")
 
     def forgotusername(self):
-        self.clear_window1()
+        self.clearWindow1()
         print("Forgot Username Clicked")
 
     def forgotpassword(self):
-        self.clear_window1()
+        self.clearWindow1()
         print("Forgot Password Clicked")
 
-    def login(self):
-        self.clear_window1()
+    def checkLogin(self):
+        self.clearWindow1()
         print("Login Clicked")
 
     def Signup(self):
-        self.clear_window1()
+        self.clearWindow1()
         self.window2()
         print("Sign Up Clicked")
 
-    def clear_window1(self):
+    def clearWindow1(self):
         # self.usernameEntry.delete(0, END)
         # self.passwordEntry.delete(0, END)
         self.imglabel2.place_forget()
-        self.Home.place_forget()
+        self.home.place_forget()
         self.AboutUs.place_forget()
         self.ContactUs.place_forget()
         self.imglabel1.place_forget()
         self.frame.place_forget()
-        self.loginLabel.place_forget()
-        self.usernameEntry.place_forget()
-        self.forgotUsername.place_forget()
-        self.passwordEntry.place_forget()
-        self.forgotPass.place_forget()
-        self.loginButton.place_forget()
-        self.noAccount.place_forget()
-        self.signupButton.place_forget()
+        # self.loginLabel.place_forget()
+        # self.usernameEntry.place_forget()
+        # self.forgotUsername.place_forget()
+        # self.passwordEntry.place_forget()
+        # self.forgotPass.place_forget()
+        # self.loginButton1.place_forget()
+        # self.noAccount.place_forget()
+        # self.signupButton.place_forget()
 
 #----------------------------------------------------------------------------------------------------------------------------
 
     def window2(self):
         self.imglabel2.place(relx=0.1, rely=0.06, anchor='center')
-        self.Home.place(relx=0.2, rely=0.06, anchor='center')
+        self.home.place(relx=0.2, rely=0.06, anchor='center')
         self.AboutUs.place(relx=0.3, rely=0.06, anchor='center')
         self.ContactUs.place(relx=0.4, rely=0.06, anchor='center')
         self.imglabel1.place(relx=0.5, rely=0.1)
-        self.frame.place(relx=0.3, rely=0.5, anchor='center')
-        self.signupLabel.place(relx=0.5,rely=0.1,anchor='center')
+        self.SignUpFrame.place(relx=0.3, rely=0.5, anchor='center')
+        self.signupLabel.place(relx=0.5,rely=0.13,anchor='center')
+        self.nameEntry.place(relx=0.5,rely=0.3,anchor='center')
+        self.emailEntry.place(relx=0.5,rely=0.4,anchor='center')
+        self.SignupUsernameEntry.place(relx=0.5,rely=0.5,anchor='center')
+        self.SignupPassEntry.place(relx=0.5,rely=0.6,anchor='center')
+        self.reenterpassEntry.place(relx=0.5,rely=0.7,anchor='center')
+        self.submitsignup.place(relx=0.5,rely=0.82,anchor='center')
+        self.haveAccount.place(relx=0.68,rely=0.93,anchor='e')
+        self.loginButton2.place(relx=0.9,rely=0.93,anchor='e')
+
+    def SubmitSignUp(self):
+        self.clearWindow2()
+        print("Submit Buttom Clicked")
+
+    def login(self):
+        self.clearWindow2()
+        self.window1()
+        print("Login Clicked")
+
+    def clearWindow2(self):
+        self.imglabel2.place_forget()
+        self.home.place_forget()
+        self.AboutUs.place_forget()
+        self.ContactUs.place_forget()
+        self.imglabel1.place_forget()
+        self.SignUpFrame.place_forget()
 
 if __name__ == "__main__":
     dbPass = 'mokshada'
