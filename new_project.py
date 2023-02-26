@@ -5,7 +5,7 @@ import tkinter
 from tkinter import *
 from PIL import ImageTk, Image
 
-# ctk.set_appearance_mode('light')
+ctk.set_appearance_mode('light')
 
 class quiz:
     def __init__(self):
@@ -17,10 +17,15 @@ class quiz:
         self.img2 = ctk.CTkImage(Image.open("quiz_logo.png"), size=(150,150))
         self.imglabel2 = ctk.CTkLabel(root, text='', image=self.img2)
 
+        #theme button
+        self.theme_value=ctk.StringVar(value="light")
+        self.theme = ctk.CTkSwitch(root, text="Dark Theme", command = self.switch_theme, variable= self.theme_value,onvalue="dark",offvalue="light")
+        self.theme.place(relx=0.1,rely=0.9)
         #create frame for login
         self.frame = ctk.CTkFrame(root, width=320, height=400, fg_color='transparent')
 
         #login form
+
         self.home = ctk.CTkButton(root, text="Home", text_color='#4D9AD4', font=('rockwell',15), fg_color='transparent',
                                   hover_color='#C7E2FF', width=70, corner_radius=0, command=self.Home)
         self.AboutUs = ctk.CTkButton(root, text="About Us", text_color='#4D9AD4', font=('rockwell', 15),fg_color='transparent',
@@ -38,8 +43,7 @@ class quiz:
                                         text_color='#55ABEB', hover_color='#C7E2FF', command=self.forgotpassword)
         self.loginButton1 = ctk.CTkButton(self.frame, text='Login', font=('rockwell', 20, 'bold'), fg_color='#55ABEB',text_color='white',
                                          width=250, corner_radius=0, command=self.checkLogin) #, hover_color='White')
-
-        self.noAccount = ctk.CTkLabel(self.frame, text="Don't have an account?", text_color='black', font=('rockwell',14))
+        self.noAccount = ctk.CTkLabel(self.frame, text="Don't have an account?", text_color =('black','white'), font=('rockwell',14), )
         self.signupButton = ctk.CTkButton(self.frame, text='Sign Up', font=('rockwell', 15, 'bold'),fg_color='transparent',text_color='#55ABEB',
                                           width=70, hover_color='#C7E2FF', corner_radius=0, command=self.Signup)
 
@@ -57,9 +61,9 @@ class quiz:
         self.ContactUs = ctk.CTkButton(root, text="Contact Us", text_color='#4D9AD4', font=('rockwell', 15), fg_color='transparent',
                                        hover_color='#C7E2FF', width=80, corner_radius=0, command=self.contactUs)
         self.signupLabel = ctk.CTkLabel(self.SignUpFrame, text="Sign Up",text_color='#4D9AD4', font=('rockwell',30,'bold'))
-        self.nameEntry = ctk.CTkEntry(self.SignUpFrame, width=250, placeholder_text='Enter your name here',border_width=2, border_color='#55ABEB',
+        self.nameEntry = ctk.CTkEntry(self.SignUpFrame, width=250, placeholder_text=u'\U0001F464' + '   Enter your name here',border_width=2, border_color='#55ABEB',
                                           corner_radius=60, placeholder_text_color='#55ABEB')
-        self.emailEntry = ctk.CTkEntry(self.SignUpFrame, width=250, placeholder_text='Enter valid email id', border_width=2, border_color='#55ABEB',
+        self.emailEntry = ctk.CTkEntry(self.SignUpFrame, width=250, placeholder_text='@   Enter valid email id', border_width=2, border_color='#55ABEB',
                                        corner_radius=60, placeholder_text_color='#55ABEB')
         self.SignupUsernameEntry = ctk.CTkEntry(self.SignUpFrame, width=250, placeholder_text=u'\U0001F464' + '   Username',border_width=2, border_color='#55ABEB',
                                           corner_radius=60, placeholder_text_color='#55ABEB')
@@ -69,12 +73,16 @@ class quiz:
                                           border_color='#55ABEB', placeholder_text_color='#55ABEB', corner_radius=60)
         self.submitsignup = ctk.CTkButton(self.SignUpFrame, text="Submit", text_color='white', font=('rockwell',20,'bold'), fg_color='#55ABEB',
                                         width=250, corner_radius=0, command=self.SubmitSignUp)
-        self.haveAccount = ctk.CTkLabel(self.SignUpFrame, text="Already have an account?", text_color='black', font=('rockwell', 14))
+        self.haveAccount = ctk.CTkLabel(self.SignUpFrame, text="Already have an account?", text_color=('black','white'), font=('rockwell', 14))
         self.loginButton2 = ctk.CTkButton(self.SignUpFrame, text='Login', font=('rockwell', 15, 'bold'),fg_color='transparent',text_color='#55ABEB',
                                           width=70, hover_color='#C7E2FF', corner_radius=0, command=self.login)
 
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    def switch_theme(self):
+        print("Theme change",self.theme_value.get())
+        ctk.set_appearance_mode(self.theme_value.get())
+
     def window1(self):
         self.imglabel2.place(relx=0.1,rely=0.06,anchor='center')
         self.home.place(relx=0.2, rely=0.06,anchor='center')
@@ -177,7 +185,7 @@ class quiz:
         self.SignUpFrame.place_forget()
 
 if __name__ == "__main__":
-    dbPass = 'mokshada'
+    dbPass = 'Ridd_hish'
     try:
         mycon = mc.connect(host='localhost', user='root', password=dbPass, database='quiz')
         user = mycon.cursor()
