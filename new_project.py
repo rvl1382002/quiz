@@ -21,19 +21,19 @@ class quiz:
 
         #theme button
         self.theme_value=ctk.StringVar(value="light")
-        self.theme = ctk.CTkSwitch(root, text="Dark Theme", command = self.switch_theme, variable= self.theme_value,onvalue="dark",offvalue="light")
-        self.theme.place(relx=0.8,rely=0.05)
+        self.theme = ctk.CTkSwitch(self.frame1, text="Dark Theme",text_color='#3166A6', command = self.switch_theme, variable= self.theme_value,onvalue="dark",offvalue="light")
+        self.theme.place(relx=0.63,rely=0.4)
 
         #create frame for login
         self.loginFrame = ctk.CTkFrame(root, width=320, height=400, fg_color='transparent')
 
         #login form
-        self.homeButton = ctk.CTkButton(self.frame1, text="Home", text_color='#4D9AD4', font=('rockwell',15), fg_color='transparent',
-                                       hover_color='#C7E2FF', width=70, corner_radius=0, command=self.Home)
-        self.aboutUsButton = ctk.CTkButton(self.frame1, text="About Us", text_color='#4D9AD4', font=('rockwell', 15),fg_color='transparent',
-                                            hover_color='#C7E2FF', width=80, corner_radius=0, command=self.aboutUs)
-        self.contactUsButton = ctk.CTkButton(self.frame1, text="Contact Us", text_color='#4D9AD4', font=('rockwell', 15),fg_color='transparent',
-                                             hover_color='#C7E2FF', width=80, corner_radius=0, command=self.contactUs)
+        self.homeButton = ctk.CTkButton(self.frame1, text="Home", text_color='#3166A6', font=('rockwell',15,'bold'), fg_color='transparent',
+                                       hover_color='#AED3FF', width=70, corner_radius=0, command=self.Home)
+        self.aboutUsButton = ctk.CTkButton(self.frame1, text="About Us", text_color='#3166A6', font=('rockwell', 15,'bold'),fg_color='transparent',
+                                            hover_color='#AED3FF', width=80, corner_radius=0, command=self.aboutUs)
+        self.contactUsButton = ctk.CTkButton(self.frame1, text="Contact Us", text_color='#3166A6', font=('rockwell', 15, 'bold'),fg_color='transparent',
+                                             hover_color='#AED3FF', width=80, corner_radius=0, command=self.contactUs)
         self.loginLabel = ctk.CTkLabel(self.loginFrame, text="Login",text_color='#4D9AD4', font=('rockwell',30,'bold')) #, fg_color=("white", "gray75"))
         self.usernameEntry = ctk.CTkEntry(self.loginFrame, width=250, placeholder_text=u'\U0001F464'+'   Username',border_width=2, border_color='#55ABEB',
                                          corner_radius=60, placeholder_text_color='#55ABEB')
@@ -84,15 +84,46 @@ class quiz:
 
         # self.dashboardHomeButton = ctk.CTkButton(root, text="Home", text_color='#4D9AD4', font=('rockwell', 15), fg_color='transparent',
         #                                  hover_color='#C7E2FF', width=70, corner_radius=0, command=self.Home)
-        self.leaderboardButton = ctk.CTkButton(root, text="Leaderboard", text_color='#4D9AD4', font=('rockwell', 15), fg_color='transparent',
-                                            hover_color='#C7E2FF', width=100, corner_radius=0, command=self.LeaderBoard)
-        self.helpbutton = ctk.CTkButton(root, text="Help", text_color='#4D9AD4', font=('rockwell', 15), fg_color='transparent',
-                                        hover_color='#C7E2FF', width=50, corner_radius=0, command=self.Help)
-        self.dashboardFrame2 = ctk.CTkFrame(root, width=900, height=480, fg_color='white')
-        self.dashboardName = ctk.CTkLabel(self.dashboardFrame2, text='Name: ', font=('rockwell', 15))
-        self.dashboardUsername = ctk.CTkLabel(self.dashboardFrame2, text='Username: ', font=('rockwell', 15))
-        self.dashboardEmail = ctk.CTkLabel(self.dashboardFrame2, text='Email: ', font=('rockwell', 15))
+        self.leaderboardButton = ctk.CTkButton(self.frame1, text="Leaderboard", text_color='#3166A6', font=('rockwell', 15,'bold'), fg_color='transparent',
+                                            hover_color='#AED3FF', width=100, corner_radius=0, command=self.LeaderBoard)
+        self.helpbutton = ctk.CTkButton(self.frame1, text="Help", text_color='#3166A6', font=('rockwell', 15,'bold'), fg_color='transparent',
+                                        hover_color='#AED3FF', width=50, corner_radius=0, command=self.Help)
+        self.dashboardFrame = ctk.CTkFrame(root, width=900, height=480, fg_color='white')
+        self.dashboardName = ctk.CTkLabel(self.dashboardFrame, text='Name: ',text_color='#3166A6', font=('rockwell', 15))
+        self.dashboardUsername = ctk.CTkLabel(self.dashboardFrame, text='Username: ',text_color='#3166A6', font=('rockwell', 15))
+        self.dashboardEmail = ctk.CTkLabel(self.dashboardFrame, text='Email: ', text_color='#3166A6', font=('rockwell', 15))
+        self.changePass = ctk.CTkButton(self.dashboardFrame, text='Change Password', text_color="white", font=('rockwell',16,'bold'),fg_color='#55ABEB',
+                                        width=180, corner_radius=0, command=self.changePassword)
+        self.logoutButton = ctk.CTkButton(self.frame1, text='Logout', text_color="#3166A6", font=('rockwell',16,'bold'),fg_color='transparent',
+                                        hover_color='#AED3FF',width=100, corner_radius=0, command=self.logout)
+        self.giveQuizButton = ctk.CTkButton(self.dashboardFrame, text='Give Quiz', text_color='white', font=('rockwell',16,'bold'),fg_color='#55ABEB',
+                                            width=100, corner_radius=0, command=self.giveQuiz)
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+        # Window 4 Widgets: About Us
+        self.aboutBgimage = ctk.CTkImage(Image.open("aboutUs_bgimage.png"), size=(500, 500))
+        self.aboutBgimageLabel = ctk.CTkLabel(root, text='', image=self.aboutBgimage)
+        self.aboutUsFrame = ctk.CTkFrame(root, width=320, height=400, fg_color='transparent')
+        self.aboutLable = ctk.CTkLabel(self.aboutUsFrame, text="About Us", text_color='#4D9AD4', font=('rockwell', 35, 'bold'))
+        self.aboutLable2 = ctk.CTkLabel(self.aboutUsFrame, text="Developed and Designed by: \n\n Riddhish V. Lichade \n Mokshada E. Jawale "
+                                                                "\n\n Computer Engineering Student \n Dr. Babasaheb Ambedkar \n Technological University, Lonere.",
+                                        text_color='#3166A6', font=('rockwell', 17))
+
+
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------
+        # Window 5 Widgets: Contact Us
+        self.contactBgimage = ctk.CTkImage(Image.open("contactUs_bgimage.png"), size=(500, 500))
+        self.contactBgimageLabel = ctk.CTkLabel(root, text='', image=self.contactBgimage)
+        self.contactUsFrame = ctk.CTkFrame(root, width=320, height=400, fg_color='transparent')
+        self.contactLabel = ctk.CTkLabel(self.contactUsFrame, text="Contact Us", text_color='#4D9AD4', font=('rockwell', 35, 'bold'))
+        self.contactName = ctk.CTkEntry(self.contactUsFrame, width=250, placeholder_text=u'\U0001F464' + '   Name',border_width=2, border_color='#55ABEB',
+                                        placeholder_text_color='#55ABEB')
+        self.contactEmail = ctk.CTkEntry(self.contactUsFrame, width=250, placeholder_text='@   Email', border_width=2, border_color='#55ABEB',
+                                        placeholder_text_color='#55ABEB')
+        self.contactMsg = ctk.CTkEntry(self.contactUsFrame, width=250,height=100, placeholder_text=u'\U0001F4AC' + '   Message', border_width=2, border_color='#55ABEB',
+                                       placeholder_text_color='#55ABEB')
+        self.contactSubmitButton = ctk.CTkButton(self.contactUsFrame, text="Submit", text_color='white', font=('rockwell',20,'bold'), fg_color='#55ABEB',
+                                                width=250, corner_radius=0, command=self.submitMsg)
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------
     def switch_theme(self):
@@ -119,15 +150,24 @@ class quiz:
 
     def Home(self):
         self.clearWindow2()
+        self.clearWindow3()
+        self.clearWindow4()
+        self.clearWindow5()
         self.window1()
         print("Home Botton Clicked")
 
     def aboutUs(self):
         self.clearWindow1()
+        self.clearWindow2()
+        self.clearWindow5()
+        self.window4()
         print("About Us Button Clicked")
 
     def contactUs(self):
         self.clearWindow1()
+        self.clearWindow2()
+        self.clearWindow4()
+        self.window5()
         print("Contact Us Button Clicked")
 
     def forgotusername(self):
@@ -152,10 +192,10 @@ class quiz:
         # self.usernameEntry.delete(0, END)
         # self.passwordEntry.delete(0, END)
         self.frame1.place_forget()
-        self.imglabel2.place_forget()
+        # self.imglabel2.place_forget()
         # self.homeButton.place_forget()
-        # self.aboutUsButton.place_forget()
-        # self.contactUsButton.place_forget()
+        self.aboutUsButton.place_forget()
+        self.contactUsButton.place_forget()
         self.imglabel1.place_forget()
         self.loginFrame.place_forget()
         # self.loginLabel.place_forget()
@@ -200,29 +240,94 @@ class quiz:
     def clearWindow2(self):
         # self.imglabel2.place_forget()
         # self.homeButton.place_forget()
-        # self.aboutUsButton.place_forget()
-        # self.contactUsButton.place_forget()
+        self.aboutUsButton.place_forget()
+        self.contactUsButton.place_forget()
         self.frame1.place_forget()
         self.imglabel1.place_forget()
         self.signUpFrame.place_forget()
 #---------------------------------------------------------------------------------------------------------------------------------------
 
     def window3(self):
-        # self.frame1.place(relx=0.1, rely=0.05, anchor='center')
+        self.frame1.place(relx=0.1, rely=0.05, anchor='center')
         # self.imglabel2.place(relx=0.49999, rely=0.5, anchor='center')
         # self.homeButton.place(relx=0.53, rely=0.5, anchor='center')
-        # self.leaderboardButton.place(relx=0.4, rely=0.06, anchor='center')
-        # self.helpbutton.place(relx=0.6, rely=0.06,anchor='center')
-        self.dashboardFrame2.place(relx=0.5, rely=0.53, anchor='center')
+        self.leaderboardButton.place(relx=0.57, rely=0.5, anchor='center')
+        self.helpbutton.place(relx=0.61, rely=0.5,anchor='center')
+        self.dashboardFrame.place(relx=0.5, rely=0.53, anchor='center')
         self.dashboardName.place(relx=0.1,rely=0.1,anchor='e')
         self.dashboardUsername.place(relx=0.1, rely=0.2, anchor='e')
         self.dashboardEmail.place(relx=0.1, rely=0.3, anchor='e')
+        self.changePass.place(relx=0.1,rely=0.9,anchor='center')
+        self.logoutButton.place(relx=0.675,rely=0.5,anchor='center')
+        self.giveQuizButton.place(relx=0.9, rely=0.1,anchor='center')
+
 
     def LeaderBoard(self):
+        self.clearWindow3()
         print("Leaderboard Button Clicked")
 
     def Help(self):
+        self.clearWindow3()
         print("Help Button Clicked")
+
+    def changePassword(self):
+        self.clearWindow3()
+        print("Change Password Button Clicked")
+
+    def logout(self):
+        self.clearWindow3()
+        self.clearWindow5()
+        self.window1()
+        print('Logout Button Clicked')
+
+    def giveQuiz(self):
+        print("Give quiz Button Clicked")
+
+    def clearWindow3(self):
+        self.frame1.place_forget()
+        self.leaderboardButton.place_forget()
+        self.helpbutton.place_forget()
+        self.logoutButton.place_forget()
+        self.dashboardFrame.place_forget()
+
+#--------------------------------------------------------------------------------------------------------------------------------------------------
+    def window4(self):
+        self.frame1.place(relx=0.1,rely=0.05,anchor='center')
+        self.contactUsButton.place(relx=0.59,rely=0.5,anchor='center')
+        self.logoutButton.place(relx=0.675, rely=0.5, anchor='center')
+        self.aboutBgimageLabel.place(relx=0.5, rely=0.13)
+        self.aboutUsFrame.place(relx=0.3, rely=0.55, anchor='center')
+        self.aboutLable.place(relx=0.5,rely=0.1,anchor='center')
+        self.aboutLable2.place(relx=0.12,rely=0.4,anchor='w')
+
+    def clearWindow4(self):
+        self.frame1.place_forget()
+        self.aboutBgimageLabel.place_forget()
+        self.aboutUsFrame.place_forget()
+
+#-------------------------------------------------------------------------------------------------------------------------------------------------------
+    def window5(self):
+        self.frame1.place(relx=0.1, rely=0.05, anchor='center')
+        self.aboutUsButton.place(relx=0.56, rely=0.5, anchor='center')
+        self.contactUsFrame.place(relx=0.7,rely=0.55,anchor='center')
+        self.logoutButton.place(relx=0.675, rely=0.5, anchor='center')
+        self.contactBgimageLabel.place(relx=0.27,rely=0.55,anchor='center')
+        self.contactLabel.place(relx=0.5,rely=0.1,anchor='center')
+        self.contactName.place(relx=0.5,rely=0.3,anchor='center')
+        self.contactEmail.place(relx=0.5,rely=0.4,anchor='center')
+        self.contactMsg.place(relx=0.5,rely=0.45,anchor='n')
+        self.contactSubmitButton.place(relx=0.5,rely=0.8,anchor='center')
+
+    def submitMsg(self):
+        print('Submit button clicked')
+
+    def clearWindow5(self):
+        self.frame1.place_forget()
+        self.contactUsFrame.place_forget()
+        self.contactBgimageLabel.place_forget()
+
+
+
 
 
 if __name__ == "__main__":
